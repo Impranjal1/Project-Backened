@@ -1,0 +1,14 @@
+{
+  "buildCommand": "chmod +x render-build.sh && ./render-build.sh",
+  "startCommand": "npm start",
+  "envVars": [
+    {
+      "key": "NODE_ENV",
+      "value": "production"
+    },
+    {
+      "key": "PORT",
+      "value": "10000"
+    }
+  ]
+}

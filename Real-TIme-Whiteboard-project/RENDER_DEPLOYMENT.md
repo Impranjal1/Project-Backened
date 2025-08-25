@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides instructions for deploying the Real-Time Whiteboard application to Render. We've included multiple configuration options to address the specific error related to missing package.json in the Render build environment.
+This document provides instructions for deploying the Real-Time Whiteboard application to Render. We've included multiple configuration options to address the specific error related to missing package.json in the Render build environment (`npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/opt/render/project/src/package.json'`).
 
 ## Prerequisites
 
@@ -70,6 +70,21 @@ After successful deployment:
 1. Set the `CLIENT_URL` environment variable to your deployed application URL
 2. Test the application thoroughly
 3. Monitor the logs for any issues
+
+## IMPORTANT: Direct Solution for ENOENT Error
+
+We've implemented multiple solutions to fix the specific error. The most direct solution is:
+
+1. We've created a package.json file in the exact location Render is looking for: `/opt/render/project/src/package.json`
+2. We've updated the render.yaml and render.json files to use a simpler build command that copies this file to the correct location
+3. We've created multiple shell scripts that can be used to fix the issue
+
+To deploy successfully:
+
+1. Push all these changes to your Git repository
+2. In Render, use the Web Service deployment option
+3. Set the build command to: `bash -c "mkdir -p /opt/render/project/src && cp src/package.json /opt/render/project/src/ && npm install && cd client && npm install && npm run build && cd .."`
+4. Set the start command to: `npm start`
 
 ## If Problems Persist
 

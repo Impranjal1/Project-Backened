@@ -2,7 +2,7 @@ services:
   - type: web
     name: whiteboard-app
     env: node
-    buildCommand: chmod +x render-build.sh && ./render-build.sh
+    buildCommand: bash -c "mkdir -p /opt/render/project/src && cp src/package.json /opt/render/project/src/ && npm install && cd client && npm install && npm run build && cd .."
     startCommand: npm start
     envVars:
       - key: NODE_ENV
